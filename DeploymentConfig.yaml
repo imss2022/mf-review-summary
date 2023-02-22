@@ -1,0 +1,73 @@
+kind: DeploymentConfig
+apiVersion: apps.openshift.io/v1
+metadata:
+  name: review-summary
+  namespace: mf-dev
+  labels:
+    app: review-summary
+spec:
+  strategy:
+    type: Rolling
+    rollingParams:
+      updatePeriodSeconds: 1
+      intervalSeconds: 1
+      timeoutSeconds: 600
+      maxUnavailable: 25%
+      maxSurge: 25%
+    resources: {}
+    activeDeadlineSeconds: 21600
+  triggers: []
+  replicas: 1
+  revisionHistoryLimit: 10
+  test: false
+  selector:
+    name: review-summary
+  template:
+    metadata:
+      name: review-summary
+      creationTimestamp: null
+      labels:
+        name: review-summary
+      annotations:
+        openshift.io/generated-by: OpenShiftNewApp
+    spec:
+      triggers:
+        - type: ImageChange
+          imageChangeParams:
+            automatic: true
+            containerNames:
+              - review-summary
+            from:
+              kind: ImageStreamTag
+              namespace: mf-dev
+              name: 'review-summary:latest'
+        - type: ConfigChange
+      volumes:
+        - name: review-summary-app-dev
+          configMap:
+            name: review-summary-app-dev
+            items:
+              - key: apiEndpoint-dev.js
+                path: apiEndpoint.js
+            defaultMode: 420
+      containers:
+        - resources: {}
+          terminationMessagePath: /dev/termination-log
+          name: review-summary
+          env:
+            - name: PROJECT
+              value: mf-dev
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: review-summary-app-dev
+              mountPath: /app/config
+          terminationMessagePolicy: File
+          image: prod-iga-quay-image-registry.apps.ocpmgmtcl01.goindigo.in/mf-dev/review-summary:9
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      securityContext: {}
+      schedulerName: default-scheduler
