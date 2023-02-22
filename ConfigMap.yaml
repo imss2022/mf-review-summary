@@ -1,0 +1,26 @@
+apiVersion: v1
+data:
+  apiEndpoint-prod.js: |
+    // const BASE_URL = "https://skyplus-prod.goindigo.in/webdigitalapi"; //this is login
+    const BASE_URL = "https://skyplus-prod.goindigo.in"; //added new DLL url
+    const SEARCH_FLIGHT = `${BASE_URL}/Login_Skyplus/IndigoWeb/availability/Flight/GetAvailability`;
+    const DESTINATIONS_LIST = `${BASE_URL}/BookingWidgets_skyplus/IndigoWeb/Settings/AirportLocations`;
+    //added const GET_TOKEN = `${BASE_URL}/IndigoWeb/6esession/create`;
+    const GET_TOKEN = `${BASE_URL}/Login_Skyplus/v1/token/create`; //new DLL URL
+    // const GET_WIDGET_DATA = `${BASE_URL}/IndigoWeb/Settings/IndigoWidgets`;
+    const GET_WIDGET_DATA = `${BASE_URL}/BookingWidgets_skyplus/v1/setting/IndigoWidgets`; //new DLL URL
+    // const VALIDATE_PROMOCODE = `${BASE_URL}/IndigoWeb/Settings/IndigoValidatePromocode`;
+    const VALIDATE_PROMOCODE = `${BASE_URL}/Flight_Skyplus/v1/Flight/ValidatePromocode`;
+    export {
+      SEARCH_FLIGHT,
+      DESTINATIONS_LIST,
+      GET_TOKEN,
+      GET_WIDGET_DATA,
+      BASE_URL,
+      VALIDATE_PROMOCODE,
+    };
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: review-summary-app-prod
+  namespace: mf-prod
