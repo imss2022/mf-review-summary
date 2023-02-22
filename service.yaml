@@ -1,0 +1,19 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: review-summary
+  namespace: mf-qa
+  labels:
+    app: review-summary
+spec:
+  ports:
+    - name: 8080-tcp
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
+  internalTrafficPolicy: Cluster
+  type: ClusterIP
+  ipFamilyPolicy: SingleStack
+  sessionAffinity: None
+  selector:
+    name: review-summary

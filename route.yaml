@@ -1,0 +1,16 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: review-summary
+  namespace: mf-qa
+  labels:
+    app: review-summary
+spec:
+  path: "/"
+  to:
+    kind: Service
+    name: review-summary
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+    

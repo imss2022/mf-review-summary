@@ -1,0 +1,7 @@
+resources:
+- namespace.yaml
+- secret.yaml
+- DeploymentConfig.yaml
+- ConfigMap.yaml
+- service.yaml
+- route.yaml
