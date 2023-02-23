@@ -65,7 +65,7 @@ spec:
             - name: review-summary-app-dev
               mountPath: /app/config
           terminationMessagePolicy: File
-          image: prod-iga-quay-image-registry.apps.ocpmgmtcl01.goindigo.in/mf-dev/review-summary:9
+          image: prod-iga-quay-image-registry.apps.ocpmgmtcl01.goindigo.in/mf-dev/review-summary:2
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
       dnsPolicy: ClusterFirst
