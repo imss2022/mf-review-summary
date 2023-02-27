@@ -57,6 +57,10 @@ spec:
           env:
             - name: PROJECT
               value: mf-prod
+            - name: ASPNETCORE_ENVIRONMENT
+              value: development
+            - name: REACT_APP_TEST
+              value: test
           ports:
             - containerPort: 8080
               protocol: TCP
